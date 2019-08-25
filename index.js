@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
-/*GLITCH_PROJECT_ID=''
-GLITCH_TOKEN='' 
-GH_REPO='' ./node_modules/.bin/sync-glitch*/
+const { telegramSetup } = require('./keys.js');
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -20,14 +18,14 @@ const listener = app.listen(process.env.PORT, function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
-const { TELEGRAM_BOT_TOKEN } = process.env;
-const Telegraf = require('telegraf')
-const Extra = require('telegraf/extra')
-const Markup = require('telegraf/markup')
-const Telegram = require('telegraf/telegram')
+//const { TELEGRAM_BOT_TOKEN } = process.env;
+const Telegraf = require('telegraf');
+const Extra = require('telegraf/extra');
+const Markup = require('telegraf/markup');
+const Telegram = require('telegraf/telegram');
 
 const challengerFotoFimihastag = 'challengerFimi';
-const bot = new Telegraf(TELEGRAM_BOT_TOKEN)
+const bot = new Telegraf(telegramSetup.TELEGRAM_BOT_TOKEN)
 const challengerFimiRx = new RegExp(challengerFotoFimihastag, 'gi'); ///challengerFimi/gi
 /* Función para obtnener el tipo de mensaje
   - in: c
