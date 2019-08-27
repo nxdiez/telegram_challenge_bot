@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const { telegramSetup } = require('./keys.js');
+const utils = require('./utils.js');
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -25,7 +26,8 @@ const Markup = require('telegraf/markup');
 const Telegram = require('telegraf/telegram');
 
 const challengerFotoFimihastag = 'challengerFimi';
-const bot = new Telegraf(telegramSetup.TELEGRAM_BOT_TOKEN)
+console.log('bot token: ' + telegramSetup.TELEGRAM_BOT_TOKEN);
+const bot = new Telegraf(telegramSetup.TELEGRAM_BOT_TOKEN);
 const challengerFimiRx = new RegExp(challengerFotoFimihastag, 'gi'); ///challengerFimi/gi
 /* Función para obtnener el tipo de mensaje
   - in: c
@@ -76,7 +78,7 @@ function processMessage(ctx){
   switch(messageType(ctx, message)){   
     case "photo"://cuando es foto
       if (isPhotoChallenger(message)){ //valido si es un mensaje para el fimiChallenger
-        sendPhotoToAdminPhotoChallenger(ctx,message)
+        //sendPhotoToAdminPhotoChallenger(ctx,message)
       }else{
         ctx.reply('Tienes que incluir el hashtag #' + challengerFotoFimihastag + ' al enviar la foto. Recuerda que puedes editar el mensaje.') 
       }
@@ -166,6 +168,19 @@ function sendPhotoToAdminPhotoChallenger(ctx,message){
     console.log('Enviado');
 }
 
+bot.start((ctx)=>{
+  utils.validateUserX8(ctx).then(
+    (isValid)=>{
+      console.log('start ' + isValid);
+    },
+    (isValid)=>{
+      console.log('no se ha conseguido validar el usuario ' + isValid)
+    }
+  ).catch((e)=>{
+    console.log('start error ' + e);
+  })
+  
+})
 /*En cada mensaje recibido o editado, donde el bot tenga permiso de lectura sobre todos los mensajes, ejecutamos la función processMessage
 */
 bot.on(['message','edited_message'], (ctx) => {
