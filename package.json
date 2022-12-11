@@ -20,7 +20,7 @@
   "homepage": "https://github.com/nxdiez/telegram_challenge_bot#readme",
   "dependencies": {
     "bluebird": "^3.5.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "sqlite": "^3.0.3",
     "telegraf": "^3.32.0"
   },
